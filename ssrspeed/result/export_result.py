@@ -320,9 +320,10 @@ class ExportResult(object):
 			fill=(0,0,0)
 		)
 		'''
-		
+		for item in result:
+			EName = item["group"]
 		draw.line((0,newImageHeight - 1,imageRightPosition,newImageHeight - 1),fill=(127,127,127),width=1)
-		filename = "./results/" + time.strftime("%Y-%m-%d-%H-%M-%S", generatedTime) + ".png"
+		filename = "./results/" + EName + " " + time.strftime("%Y-%m-%d-%H-%M-%S", generatedTime) + ".png"
 		resultImg.save(filename)
 		files.append(filename)
 		logger.info("Result image saved as %s" % filename)
@@ -381,7 +382,9 @@ class ExportResult(object):
 
 	def __exportAsJson(self,result):
 	#	result = self.__deweighting(result)
-		filename = "./results/" + time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime()) + ".json"
+		for item in result:
+			EName = item["group"]
+		filename = "./results/" +EName+" "+ time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime()) + ".json"
 		with open(filename,"w+",encoding="utf-8") as f:
 			f.writelines(json.dumps(result,sort_keys=True,indent=4,separators=(',',':')))
 		logger.info("Result exported as %s" % filename)
